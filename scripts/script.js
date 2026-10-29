@@ -1,12 +1,13 @@
-const squareBody = document.querySelector('.square-body')
-let blocks = squareBody.querySelectorAll('.block');
+const squareBody = document.querySelector('.square-body');
+const resetBtn = document.querySelector('.btn-reset');
+let blocksHTML = squareBody.querySelectorAll('.block');
+let basePositionBlocks = Array.from(blocksHTML);
+let blocks = Array.from(blocksHTML);
 
-let rowMatrix = [];
-blocks = Array.from(blocks);
-let basePositionBlocks = blocks.slice();
 
 const moving = {
     swapBlocks(currentIndex, targetIndex) {
+
         let currentBlock = blocks[currentIndex];
         let neighbourBlock = blocks[targetIndex];
 
@@ -50,15 +51,6 @@ const moving = {
     }
 }
 
-const moveRight = (eTargetIndex, neighbourIndex) => {
-    if (eTargetIndex === 0) {
-
-    }
-    let temp = eTarget.textContent;
-    eTarget.textContent = neighbour.textContent;
-    neighbour.textContent = temp;
-}
-
 squareBody.addEventListener('click', e => {
     let targetIndex = blocks.indexOf(e.target.closest('.block'))
     let direction;
@@ -69,4 +61,10 @@ squareBody.addEventListener('click', e => {
         moving[direction](targetIndex);
     }
 
+})
+
+resetBtn.addEventListener('click', () => {
+    blocks.forEach((block, index) => {
+        block.querySelector('.block-number').textContent = index + 1;
+    })
 })
